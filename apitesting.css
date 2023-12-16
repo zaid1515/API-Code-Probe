@@ -26,7 +26,10 @@
     display: flex;
 }
 
-
+.reqbody-div{
+     padding: 15px 100px;
+     /* width: 90%; */
+}
 
 input[type="text"],
 textarea {
@@ -98,21 +101,49 @@ textarea {
 }
 
 /* Specific styles for individual elements */
-input#url {
-    width: 300px; /* Adjust the width as needed */
-}
 
-input#api-keys {
-    width: 300px; /* Adjust the width as needed */
-}
 
-textarea#req-body {
-    width: 350px; /* Adjust the width as needed */
-    height: 190px; /* Adjust the height as needed */
-}
 
 /* Style for the response body */
 .response {
     border: 2px solid #000;
     padding: 8px;
+}
+
+.method-title,.api-{
+     margin-left: 34px;
+     margin-top: 5px;
+}
+.input-with-dropdown{
+     margin-left: 28px;
+}
+.center-dropdown{
+     width: 150%;
+     padding: 6px;
+}
+#api-keys,#api-value{
+     width: 24%;
+}
+.keys-title{
+     margin-left: 12px;
+}
+
+.add-head{
+     text-decoration: none;
+     border: 0px;
+     padding: 10px 10px;
+     font-size: 16px;
+     /* display: block; */
+     /* margin: auto; */
+     margin-left: 30px;
+     border-radius:20px ;
+     background-color: #1397b1;
+     color:white;
+}
+.head-title{
+     margin-top: 5px;
+     margin-right: 28px;
+}
+#api-keys-new,#api-value-new{
+     width: 30%;
 }
