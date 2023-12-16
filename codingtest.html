@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="codetesting.css">
+     <title>Code Testing</title>
+</head>
+
+<body>
+
+     <div class="container">
+          <div class="text">Enim facere dolore, harum quia nostrum modi in,
+               perspiciatis similique vitae iure est ex eveniet neque laborum, ducimus tempora sapiente.
+          </div>
+          <div class="code-img-div">
+
+               <img class="code-img" src="./images/codetesting.png" alt="Code Testing">
+          </div>
+     </div>
+     <div class="user-fields">
+          <div class="lang-div">
+               <div class="lang-title">
+                    Language:
+               </div>
+               <input class="center1" type="text" name="url" id="url">
+          </div>
+          <div class="code-title">
+               Code:
+          </div>
+          <div class="codearea">
+               <textarea name="code" id="code" cols="16" rows="28"></textarea>
+          </div>
+          <div class="exp-op">
+               
+          </div>
+     </div>
+     <div id="extra-fields">
+
+     </div>
+     <div class="addnew">
+          <button id="add-btn">Add testcase</button>
+     </div>
+     <script>
+          var addButton = document.getElementById('add-btn');
+          var extraFieldsDiv = document.getElementById('extra-fields');
+          var fieldCount = 1;
+
+          addButton.addEventListener('click', function () {
+               var newUserFieldsDiv = document.createElement('div');
+               newUserFieldsDiv.className = 'reqbody-div-new';
+
+               newUserFieldsDiv.innerHTML = `
+                    <div class="req-title">
+                         Request <br> Body:
+                    </div>
+                    <textarea class="center3-new" name="req-body" id="req-body" cols="30" rows="10"></textarea>
+                    <div class="res-title">Response <br/> Body</div>
+                    <div class="response" id="response-${fieldCount}"></div>`;
+               extraFieldsDiv.appendChild(newUserFieldsDiv);
+               fieldCount++;
+          });
+     </script>
+</body>
+
+
+
+</html>
