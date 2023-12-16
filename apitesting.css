@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Capriola&family=Dongle&family=Fredoka:wght@600&family=Nunito:wght@600&family=Poppins:wght@500&family=Signika+Negative:wght@500;600&display=swap');
+
+*{
+     font-family: 'Nunito',serif;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+.container{
+     display: flex;
+     margin: 100px 40px;
+     margin-bottom: 20px;
+}
+.api-img{
+     height: 600px;
+}
+.text{
+     font-size: 34px;
+     margin: 160px 80px;
+}
+
+.url-div,
+.apikeys-div,
+.reqbody-div ,.response{
+    margin-bottom: 15px;
+    display: flex;
+}
+
+
+
+input[type="text"],
+textarea {
+    width: 35%;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.url-title,.keys-title,.req-title,.res-title{
+     /* width: 30%; */
+    /* padding: 6px; */
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.response-txt {
+    margin-top: 10px;
+}
+
+.user-fields{
+     padding: 40px 100px;
+     padding-bottom: 0px;
+}
+
+.center1{
+     margin-left: 30px;
+}
+.center2{
+     margin-left: 22px;
+}
+.center3{
+     margin-left: 34px;
+}
+.center3-new{
+     margin-left: 35px;
+}
+.reqbody-div-new{
+     padding: 15px 100px;
+     display: flex;
+}
+
+.res-title{
+     margin: 10px 30px;
+}
+.response{
+     border: 2px solid black;
+     width: 35%;
+     padding: 6px;
+     margin-top: 5px;
+     margin-bottom: 10px;
+     box-sizing: border-box;
+}
+
+#add-btn{
+     padding: 20px 40px;
+     font-size: 14px;
+     /* display: block; */
+     /* margin: auto; */
+     margin-left: 360px;
+     border-radius:20px ;
+     background-color: #90E0EF;
+}
