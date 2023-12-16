@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Submission Form</title>
+</head>
+<body>
+    <form id="dataForm">
+        <textarea name="input1" rows="10" cols="50"></textarea>
+        <textarea name="input1" rows="10" cols="50"></textarea>
+        <textarea name="input1" rows="10" cols="50"></textarea>
+
+        <textarea name="output" rows="10" cols="50"></textarea>
+        <textarea name="output" rows="10" cols="50"></textarea>
+        <textarea name="output" rows="10" cols="50"></textarea>
+
+        <textarea name="code" rows="10" cols="50"></textarea>
+
+        <textarea name="language" rows="10" cols="50"></textarea>
+
+        <!-- Submit button -->
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Create an empty form data object
+            var formData = new FormData();
+            var code = document.querySelector('textarea[name="code"]').value;
+            code = encodeURIComponent(code);
+
+            formData.append("code", code);
+
+            var inputs = document.querySelectorAll('textarea[name="input1"]');
+            var inputValues = Array.from(inputs).map(input => input.value);
+            formData.append("inputs", inputValues);
+
+            var outputs = document.querySelectorAll('textarea[name="output"]');
+            var outputValues = Array.from(outputs).map(output => output.value);
+            formData.append("outputs", outputValues);
+
+            var language = document.querySelector('textarea[name="language"]').value;
+            formData.append("language", language);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/submit-code", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText);
+                    } else {
+                        console.error("Error:", xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>

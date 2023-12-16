@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Submission Form</title>
+</head>
+<body>
+    <form id="dataForm">
+    <input type="text" name="input" value = "Input 1">
+    <input type="text" name="input" value = "Input 2">
+    <input type="text" name="input" value = "Input 3">
+
+    <input type="text" name="output" value = "Output 1">
+    <input type="text" name="output" value = "Output 2">
+    <input type="text" name="output" value = "Output 3">
+
+    <input type="text" name="code" value = "Code">
+
+    <input type="text" name="language" value="JavaScript">
+        <!-- Submit button -->
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Create an empty form data object
+            var formData = new FormData();
+
+            // Append code to form data
+            var code = "your_code_here";
+            formData.append("code", code);
+
+            // Append array of inputs to form data
+            var inputs = ["input1", "input2", "input3"];
+            formData.append("inputs", inputs);
+
+            // Append array of outputs to form data
+            var outputs = ["output1", "output2", "output3"];
+            formData.append("outputs", outputs);
+
+            // Append language to form data
+            var language = "JavaScript";
+            formData.append("language", language);
+
+            // Send the form data as a POST request
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/submitData", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Handle the successful response
+                        console.log(xhr.responseText);
+                    } else {
+                        // Handle errors
+                        console.error("Error:", xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
