@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="apitesting.css">
+     <title>API Testing</title>
+</head>
+
+<body>
+
+     <div class="container">
+          <div class="text">Enim facere dolore, harum quia nostrum modi in,
+               perspiciatis similique vitae iure est ex eveniet neque laborum, ducimus tempora sapiente.
+          </div>
+          <div class="api-img-div">
+
+               <img class="api-img" src="./images/apitesting.png" alt="Api Testing">
+          </div>
+     </div>
+     <div class="user-fields">
+          <div class="url-div">
+               <div class="url-title">
+                    API URL:
+               </div>
+               <input class="center1" type="text" name="url" id="url">
+          </div>
+          <div class="apikeys-div">
+               <div class="keys-title">
+                    API KEYS:
+               </div>
+               <input class="center2" type="text" name="api-keys" id="api-keys" placeholder="(Optional)">
+          </div>
+          <div class="reqbody-div">
+               <div class="req-title">
+                    Request <br> Body:
+               </div>
+               <textarea class="center3-new" name="req-body" id="req-body" cols="30" rows="10"></textarea>
+               <div class="res-title">Response <br/> Body</div>
+               <div class="response">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem ea dicta magni tempora beatae voluptatum? Unde quae in tempore facere ad, amet ea distinctio excepturi libero est obcaecati fuga, dolore enim consectetur, architecto velit deserunt nihil fugit a nam error cum minima molestiae. Neque quisquam cumque eveniet, perspiciatis rem quos laboriosam similique, libero, labore eligendi consectetur voluptate.</div>
+          </div>
+     </div>
+     <div id="extra-fields">
+
+     </div>
+     <div class="addnew">
+          <button id="add-btn">Add testcase</button>
+     </div>
+     <script>
+          var addButton = document.getElementById('add-btn');
+          var extraFieldsDiv = document.getElementById('extra-fields');
+          var fieldCount = 1;
+
+          addButton.addEventListener('click', function () {
+               var newUserFieldsDiv = document.createElement('div');
+               newUserFieldsDiv.className = 'reqbody-div-new';
+
+               newUserFieldsDiv.innerHTML = `
+                    <div class="req-title">
+                         Request <br> Body:
+                    </div>
+                    <textarea class="center3-new" name="req-body" id="req-body" cols="30" rows="10"></textarea>
+                    <div class="res-title">Response <br/> Body</div>
+                    <div class="response" id="response-${fieldCount}"></div>
+               `;
+               extraFieldsDiv.appendChild(newUserFieldsDiv);
+               fieldCount++;
+          });
+     </script>
+</body>
+
+
+
+</html>
