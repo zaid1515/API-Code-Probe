@@ -49,7 +49,7 @@
                Programming Interface) to ensure that it meets the expected standards.
           </div>
           <div class="api-img-div">
-               <img class="api-img" src="./images/apitesting.png" alt="Api Testing">
+               <img class="api-img" src="images/apitesting.png" alt="Api Testing">
           </div>
      </div>
      <br><br><br>
@@ -98,8 +98,8 @@
                <div class="req-title">
                     Request <br> Body:
                </div>
-               <textarea class="center3-new" name="req-body" id="req-body" cols="30" rows="10"></textarea>
-               <div class="res-title">Response <br /> Body</div>
+               <textarea class="center3-new" name="req-body"  cols="30" rows="10"></textarea>
+               <div class="res-title">Response <br/> Body</div>
                <pre class = "response" id = "response-1"></pre>
                <!-- <div class="response"></div> -->
           </div>
@@ -132,8 +132,7 @@
         var values = document.querySelectorAll('input[name="api-value"]');
         var valueV = Array.from(values).map(p => p.value);
         formData.append("values", valueV);
-        var bodys = document.querySelectorAll('textarea[name="req-body"]');
-        var bod = Array.from(bodys).map(body => body.value);
+        var bod = document.querySelector('textarea[name="req-body"]').value;
         formData.append("request-body", bod);
         var xhr = new XMLHttpRequest();
             xhr.open("POST", "/submit-api", true);
@@ -153,7 +152,7 @@
                     //     output+=raw_output[i];
                     //   }
                     var fin_op=JSON.stringify(raw_output,null,4);
-                      res.innerHTML=fin_op;
+                      res.innerHTML=`${response.codes[0]} <br> ${fin_op}`;
                     //   var temp = document.getElementByClass('.response').innerHTML;
                     //   var t = temp.replace(/,/g, '<br>');
                     //   res.innerHTML = t;
@@ -179,7 +178,7 @@
                     <div class="req-title">
                          Request <br> Body:
                     </div>
-                    <textarea class="center3-new" name="req-body" id="req-body" cols="30" rows="10"></textarea>
+                    <textarea class="center3-new" name="req-body"  cols="30" rows="10"></textarea>
                     <div class="res-title">Response <br/> Body</div>
                     <textarea class="response" id="response-${fieldCount}"></textarea>
                `;

@@ -40,9 +40,19 @@ public class CodeController {
 	
 	class Pair {String f; String s; Pair(String f, String s) {this.f = f;this.s = s;}@Override public boolean equals(Object o) {if (this == o) return true; if (o == null || getClass() != o.getClass()) return false;Pair pair = (Pair) o;return f.equals(pair.f) && s.equals(pair.s);}@Override public int hashCode() {return Objects.hash(f, s);}}
 	
-	@GetMapping("")
+	@GetMapping("/")
 	public String start() {
+		return "index.html";
+	}
+	
+	@GetMapping("/code-run")
+	public String code() {
 		return "codingtest.html";
+	}
+	
+	@GetMapping("/api-run")
+	public String api() {
+		return "apitesting.html";
 	}
 	
 	@PostMapping("/submit-code")
@@ -59,7 +69,7 @@ public class CodeController {
 			System.out.println(code + " " + input + " " + output);
 			Pair f_output = null;
 			if(language.equals("Java")) f_output = run(code, input, output);
-			else if (language.equals("Cpp")) f_output = run_cpp(code, input, output);
+			else if (language.equals("C++")) f_output = run_cpp(code, input, output);
 			else if (language.equals("Python")) f_output = runpy(code, input, output);
 			f_outputs[i] = f_output.s;
 			verdicts[i] = f_output.f;
@@ -123,6 +133,7 @@ public class CodeController {
 			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
 			    	foutput += line.trim() + "\n";
 	            }
+			    if(i != expected.length) flag = false;
 			    if(!flag) return new Pair("Wrong Answer", foutput);
 			    return new Pair("Passed", foutput);
 			} else {
@@ -179,13 +190,10 @@ public class CodeController {
         			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
         			    	foutput += line.trim() + "\n";
         	            }
-        			    int exitCode = process.waitFor();
-                        if (exitCode != 0) {
-                            return new Pair("Execution Failed with exit code " + exitCode, "-1");
-                        }
+        			    if(i != expected.length) flag = false;
         			    if(!flag) return new Pair("Wrong Answer", foutput);
         			    return new Pair("Passed", foutput);
-                    } catch (IOException | InterruptedException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                         return new Pair("Internal Error ", "-1");
                     }
@@ -248,13 +256,10 @@ public class CodeController {
 			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
 			    	foutput += line.trim() + "\n";
 	            }
-			    int exitCode = process.waitFor();
-                if (exitCode != 0) {
-                    return new Pair("Execution Failed with exit code " + exitCode, "-1");
-                }
+			    if(i != expected.length) flag = false;
 			    if(!flag) return new Pair("Wrong Answer", foutput);
 			    return new Pair("Passed", foutput);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 return new Pair("Execution Error", "-1");
             }
