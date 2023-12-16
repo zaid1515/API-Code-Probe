@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="filefetch.css">
+     <title>Project Testing</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap" rel="stylesheet">
+</head>
+
+<body>
+     <nav class="navbar navbar-expand-lg" style="background-color: #ced1d2;">
+          <div class="container-fluid">
+               <a class="navbar-brand" href="#">
+                    <img src="images/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    APIcode Probe
+               </a>
+               <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                         <li class="nav-item me-5">
+                              <a class="nav-link" href="#"
+                                   style="color: #000; font-family: 'Roboto', sans-serif;"><strong>Home</strong></a>
+                         </li>
+                         <li class="nav-item me-5">
+                              <a class="nav-link" href="#"
+                                   style="color: #000; font-family: 'Roboto', sans-serif;"><strong>Features</strong></a>
+                         </li>
+                         <li class="nav-item me-5">
+                              <a class="nav-link" href="#"
+                                   style="color: #000 ; font-family: 'Roboto', sans-serif;"><strong>About
+                                        Us</strong></a>
+                         </li>
+                    </ul>
+               </div>
+          </div>
+     </nav>
+
+     <div class="container">
+          <div class="text" style="margin-left: -100px;">Project Testing
+          </div>
+          <div class="api-img-div">
+               <img class="api-img" src="images/apitesting.png" alt="Api Testing">
+          </div>
+     </div>
+     <br><br><br>
+     <h1 style="text-align: center; font-size :50px; font-family: 'Kalnia', serif;" id="1"><strong>Start
+               Testing</strong></h1>
+     <br><br><br>
+
+     <div>
+
+          <div class="user-fields">
+               <div class="filepath-div url-div">
+                    <div class="file-title">
+                         FILE PATH:
+                    </div>
+                    <input class="center0" type="text" name="file-path" id="file-path">
+               </div>
+               <div class="url-div">
+                    <div class="url-title">
+                         API URL:
+                    </div>
+                    <input class="center1" type="text" name="url" id="url">
+                    <div class="method-title">
+                         METHOD:
+                    </div>
+                    <div class="input-with-dropdown">
+                         <select class="center-dropdown" name="request-type" id="request-type">
+                              <option value="GET">GET</option>
+                              <option value="POST">POST</option>
+                              <option value="PUT">PUT</option>
+                              <option value="DELETE">DELETE</option>
+                         </select>
+                    </div>
+               </div>
+               <div class="apikeys-div">
+                    <div class="head-title">
+                         API HEADERS:
+                    </div>
+                    <div class="keys-title">
+                         KEYS:
+                    </div>
+                    <input class="center2" type="text" name="api-keys" id="api-keys" placeholder="(Optional)">
+                    <div class="method-title">
+                         Values:
+                    </div>
+                    <input class="center2" type="text" name="api-value" id="api-value" placeholder="(Optional)">
+
+                    <button class="add-head">Add
+                         More Header</button>
+               </div>
+
+          </div>
+
+          <div class="reqbody-div">
+               <div class="req-title">
+                    Request <br> Body:
+               </div>
+               <textarea class="center3-new" name="req-body" cols="30" rows="10"></textarea>
+               <div class="res-title">Response <br /> Body</div>
+               <pre class="response" id="response-1"></pre>
+               <!-- <div class="response"></div> -->
+          </div>
+     </div>
+     <div id="extra-fields">
+
+     </div>
+     <div class="addnew">
+          <button id="add-btn"
+               style="background-color: #1397b1; border:none; font-family: 'Nunito', sans-serif;color:white;font-size:20px;">Add
+               testcase</button>
+          <button id="run-btn" onclick="sendData()"
+               style="background-color: #1397b1; border:none; font-family: 'Nunito', sans-serif;color:white;font-size:20px;">
+               Send
+          </button>
+     </div>
+     <br><br>
+
+     <script>
+          function sendData() {
+               console.log("inside sendData");
+               var formData = new FormData();
+               var url = document.querySelector('input[name="url"]').value;
+               formData.append("api-url", url);
+               var method = document.querySelector('select[name="request-type"]').value;
+               formData.append("api-method", method);
+               var keys = document.querySelectorAll('input[name="api-keys"]');
+               var keyV = Array.from(keys).map(key => key.value);
+               formData.append("keys", keyV);
+               var values = document.querySelectorAll('input[name="api-value"]');
+               var valueV = Array.from(values).map(p => p.value);
+               formData.append("values", valueV);
+               var bod = document.querySelector('textarea[name="req-body"]').value;
+               formData.append("request-body", bod);
+               var xhr = new XMLHttpRequest();
+               xhr.open("POST", "/submit-api", true);
+               xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                         if (xhr.status === 200) {
+                              var response = JSON.parse(xhr.responseText);
+                              console.log(response.outputs[0]);
+                              console.log(response.codes);
+                              var res = document.querySelector('.response');
+                              var output = "";
+                              var raw_output = JSON.parse(response.outputs[0]);
+                              //   for(let i = 0;i<raw_output.length;i++){
+                              //   if (raw_output[i]===``) {
+                              //     continue;
+                              //   }
+                              //     output+=raw_output[i];
+                              //   }
+                              var fin_op = JSON.stringify(raw_output, null, 4);
+                              res.innerHTML = `${response.codes[0]} <br> ${fin_op}`;
+                              //   var temp = document.getElementByClass('.response').innerHTML;
+                              //   var t = temp.replace(/,/g, '<br>');
+                              //   res.innerHTML = t;
+                         } else {
+                              console.error("Error:", xhr.status, xhr.statusText);
+                         }
+                    }
+               };
+               xhr.send(formData);
+          }
+
+     </script>
+     <script>
+          var addButton = document.getElementById('add-btn');
+          var extraFieldsDiv = document.getElementById('extra-fields');
+          var fieldCount = 2;
+
+          addButton.addEventListener('click', function () {
+               var newUserFieldsDiv = document.createElement('div');
+               newUserFieldsDiv.className = 'reqbody-div-new';
+
+               newUserFieldsDiv.innerHTML = `
+                    <div class="req-title">
+                         Request <br> Body:
+                    </div>
+                    <textarea class="center3-new" name="req-body"  cols="30" rows="10"></textarea>
+                    <div class="res-title">Response <br/> Body</div>
+                    <textarea class="response" id="response-${fieldCount}"></textarea>
+               `;
+               extraFieldsDiv.appendChild(newUserFieldsDiv);
+               fieldCount++;
+          });
+          var addhead = document.querySelector('.add-head')
+          var userFields = document.querySelector('.user-fields')
+          addhead.addEventListener('click', function () {
+               var newHeadDiv = document.createElement('div');
+               newHeadDiv.className = 'user-fields';
+
+               newHeadDiv.innerHTML = `
+               <div class="apikeys-div" id="apikeys-div-new">
+                    
+                    <div class="keys-title">
+                          KEYS:
+                    </div>
+                    <input class="center2" type="text" name="api-keys" id="api-keys-new" placeholder="(Optional)">
+                    <div class="method-title">
+                        Values:
+                    </div>
+                    <input class="center2" type="text" name="api-value" id="api-value-new" placeholder="(Optional)">
+               </div>
+               `;
+               userFields.appendChild(newHeadDiv);
+          });
+
+     </script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+          crossorigin="anonymous"></script>
+</body>
+
+
+
+</html>
