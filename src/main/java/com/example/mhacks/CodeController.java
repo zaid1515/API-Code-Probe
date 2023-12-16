@@ -42,7 +42,7 @@ public class CodeController {
 	
 	@GetMapping("")
 	public String start() {
-		return "test.html";
+		return "codingtest.html";
 	}
 	
 	@PostMapping("/submit-code")

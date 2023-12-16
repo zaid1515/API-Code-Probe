@@ -22,7 +22,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ApiController {
 	
 	@PostMapping("/submit-api")
-	public ResponseEntity<String> run_api(@RequestParam("api-url") String api_url, @RequestParam("keys") String[] key, @RequestParam("values") String[] value, @RequestParam("api-method") String method, @RequestParam("request-body") String[] body) {
+	public ResponseEntity<Map<String, Object>> run_api(@RequestParam("api-url") String api_url, @RequestParam("keys") String[] key, @RequestParam("values") String[] value, @RequestParam("api-method") String method, @RequestParam("request-body") String[] body) {
+		System.out.println("api-url" + " : " + api_url);
+		for(int i=0;i<key.length;i++) System.out.println("(key, value) : " + "(" + key[i] + "," + value[i] + ")");
+		System.out.println("method : " + method);
+		for(int i=0;i<body.length;i++) System.out.println("Body " + (i+1) + " : " + body[i]);
+		if(body.length == 0) {
+			body = new String[1];
+		}
 		String codes[] = new String[body.length];
 		String output[] = new String[body.length];
 		for(int index = 0;index < body.length; index++) {
@@ -63,21 +70,16 @@ public class ApiController {
 	                }
 	            }
 	            output[index] = final_output;
+	            System.out.println(final_output);
 	            connection.disconnect();
 			}
 			catch(Exception e) {}
+			if(body.length == 0) break;
 		}
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("codes", codes);
 	    responseMap.put("outputs", output);
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    try {
-	        String jsonResponse = objectMapper.writeValueAsString(responseMap);
-	        System.out.println(jsonResponse);
-	        return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
-	    } catch (JsonProcessingException e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing the response");
-	    }
+	    System.out.println(responseMap);
+	    return ResponseEntity.status(HttpStatus.OK).body(responseMap);
 	}
 }

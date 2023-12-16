@@ -1,0 +1,21 @@
+.containe img {
+    padding-top: 120px; 
+}
+.text-section {
+    margin-top: 100px; 
+}
+.paragraph-box {
+    box-shadow: 0px 0px 10px rgba(4, 4, 0, 0.7); 
+    padding: 20px;
+    border-radius: 10px;
+}
+footer {
+    background-color: #19467455;
+    color: #f8f9fa;
+}
+.footer-link {
+    color: #f8f9fa !important;
+}
+/* Add these styles to your existing CSS file (apitesting.css) or inside a <style> tag in the head section */
+
+
