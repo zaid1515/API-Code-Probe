@@ -99,7 +99,7 @@ public class ApiController {
 		String codes[] = new String[1];
 		String output[] = new String[1];
 		try {
-            URL url = new URL("https://fakestoreapi.com/products/1");
+            URL url = new URL(api_url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(method);
             connection.setDoOutput(true);
