@@ -58,7 +58,7 @@ textarea {
      margin-left: 30px;
 }
 .center1{
-     margin-left: 30px;
+     margin-left: 44px;
 }
 .center2{
      margin-left: 22px;
@@ -125,9 +125,9 @@ textarea {
      margin-left: 34px;
      margin-top: 5px;
 }
-/* .input-with-dropdown{
+.input-with-dropdown{
      margin-left: 28px;
-} */
+}
 .center-dropdown{
      width: 150%;
      padding: 6px;
@@ -160,27 +160,5 @@ textarea {
 }
 
 #file-path{
-     width:50%;
-}
-
-#url{
-    border: 2px solid black;
-    width: 40%;
-}
-.add-new{
-    padding: 8px 40px;
-     font-size: 16px;
-     margin-left: 18px;
-     /* display: block; */
-     /* margin: auto; */
-     /* margin-left: 360px; */
-     border-radius:20px ;
-     height: 48px;
-     background-color: #90E0EF;
-}
-
-.api-list{
-    display: flex;
-    margin:8px 80px;
-    margin-left: 100px;
+     width:80%;
 }

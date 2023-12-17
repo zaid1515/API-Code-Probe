@@ -25,9 +25,14 @@ import java.util.regex.Pattern;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +65,7 @@ public class CodeController {
 		try {code = URLDecoder.decode(code, "UTF-8");}
 		catch (UnsupportedEncodingException e) {e.printStackTrace();}
 		System.out.println("Language Selected => " + language);
+		System.out.println(code);
 		int n = inputs.length;
 		String verdicts[] = new String[n];
 		String f_outputs[] = new String[n];
@@ -169,36 +175,32 @@ public class CodeController {
             try {
                 compileProcess = processBuilder.start();
                 int compileExitCode = compileProcess.waitFor();
-                if (compileExitCode == 0) {
-                	processBuilder = new ProcessBuilder("./output");
-                    processBuilder.redirectInput(ProcessBuilder.Redirect.PIPE);
-                    processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);
-                    long start = System.currentTimeMillis();
-                    try {
-                        Process process = processBuilder.start();
-                        try (OutputStream outputStream = process.getOutputStream()) {
-                            byte[] inputBytes = input.getBytes(StandardCharsets.UTF_8);
-                            outputStream.write(inputBytes);
-                        }
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                        String line;
-                        int i = 0;
-        			    boolean flag = true;
-        			    String foutput = "";
-        			    while ((line = reader.readLine()) != null) {
-        			    	if(i == expected.length) flag = false;
-        			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
-        			    	foutput += line.trim() + "\n";
-        	            }
-        			    if(i != expected.length) flag = false;
-        			    if(!flag) return new Pair("Wrong Answer", foutput);
-        			    return new Pair("Passed", foutput);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return new Pair("Internal Error ", "-1");
+                processBuilder = new ProcessBuilder("./output");
+                processBuilder.redirectInput(ProcessBuilder.Redirect.PIPE);
+                processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);
+                long start = System.currentTimeMillis();
+                try {
+                    Process process = processBuilder.start();
+                    try (OutputStream outputStream = process.getOutputStream()) {
+                        byte[] inputBytes = input.getBytes(StandardCharsets.UTF_8);
+                        outputStream.write(inputBytes);
                     }
-                } else {
-                    return new Pair("Compilation Failed ", "-1");
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    int i = 0;
+    			    boolean flag = true;
+    			    String foutput = "";
+    			    while ((line = reader.readLine()) != null) {
+    			    	if(i == expected.length) flag = false;
+    			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
+    			    	foutput += line.trim() + "\n";
+    	            }
+    			    if(i != expected.length) flag = false;
+    			    if(!flag) return new Pair("Wrong Answer", foutput);
+    			    return new Pair("Passed", foutput);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return new Pair("Internal Error ", "-1");
                 }
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -283,4 +285,63 @@ public class CodeController {
 	       else className = "Main";
 	       return className;
 	}
+	
+	@GetMapping("/w")
+	public String web() {
+		return "testfetch.html";
+	}
+	
+	@PostMapping("/fetch")
+	public String fetch(@RequestParam("pb-link") String link, Model model) {
+		String url = link;
+		String input = "";
+		String output = "";
+        try {
+            // Connect to the website and get the HTML document
+        	
+            Document document = Jsoup.connect(url).get();
+            int p = 0;
+            while(true) {
+            	String id = "test-example-line test-example-line-even test-example-line-" + p;
+            	String id2 = "test-example-line test-example-line-odd test-example-line-" + p;
+            	p++;
+            	Elements sampleTestElement = document.getElementsByClass(id);
+            	Elements sampleTestElementd = document.getElementsByClass(id2);
+            	if(sampleTestElement == null && sampleTestElementd == null) break;
+            	if(sampleTestElement.size() == 0 && sampleTestElementd.size() == 0) break;
+            	if(sampleTestElement.size() > sampleTestElementd.size()) {
+            		System.out.println("Content of the element: " + sampleTestElement.text());
+            		input += sampleTestElement.text() + " ";
+            	}
+            	else {
+            		System.out.println("Content of the element: " + sampleTestElementd.text());
+            		input += sampleTestElementd.text() + " ";
+            	}
+            	
+            }
+            Elements preElements = document.select("pre");
+            int i = 0;
+            // Iterate through each <pre> element
+            for (Element pre : preElements) {
+                // Print the text content of the <pre> element
+            	if(link.indexOf("a") != -1 && i == 1) {
+            		input = pre.text();
+            	}
+            	if(link.indexOf("a") != -1 && i == 2) {
+            		output = pre.text();
+            	}
+            	output = pre.text() + " ";
+                System.out.println("Preformatted text: " + pre.text());
+                i++;
+            }
+            System.out.println(input);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("inp", input);
+        model.addAttribute("out", output);
+		return "testfetch.html";
+	}
 }
+
