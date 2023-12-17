@@ -65,11 +65,13 @@ public class CodeController {
 		try {code = URLDecoder.decode(code, "UTF-8");}
 		catch (UnsupportedEncodingException e) {e.printStackTrace();}
 		System.out.println("Language Selected => " + language);
+		
 		System.out.println(code);
 		int n = inputs.length;
 		String verdicts[] = new String[n];
 		String f_outputs[] = new String[n];
 		for(int i=0;i<n;i++) {
+			System.out.println("input =>" + inputs[0]);
 			String input = inputs[i];
 			String output = outputs[i];
 			System.out.println(code + " " + input + " " + output);
@@ -135,10 +137,12 @@ public class CodeController {
 			    boolean flag = true;
 			    String foutput = "";
 			    while ((line = reader.readLine()) != null) {
+			    	System.out.println("output : " + line.trim());
 			    	if(i == expected.length) flag = false;
 			    	if(!line.trim().equals(expected[i++].trim())) flag = false;
 			    	foutput += line.trim() + "\n";
 	            }
+			    System.out.println(foutput);
 			    if(i != expected.length) flag = false;
 			    if(!flag) return new Pair("Wrong Answer", foutput);
 			    return new Pair("Passed", foutput);
@@ -311,11 +315,11 @@ public class CodeController {
             	if(sampleTestElement.size() == 0 && sampleTestElementd.size() == 0) break;
             	if(sampleTestElement.size() > sampleTestElementd.size()) {
             		System.out.println("Content of the element: " + sampleTestElement.text());
-            		input += sampleTestElement.text() + " ";
+            		input += sampleTestElement.text() + "\n";
             	}
             	else {
             		System.out.println("Content of the element: " + sampleTestElementd.text());
-            		input += sampleTestElementd.text() + " ";
+            		input += sampleTestElementd.text() + "\n";
             	}
             	
             }
@@ -330,7 +334,7 @@ public class CodeController {
             	if(link.indexOf("a") != -1 && i == 2) {
             		output = pre.text();
             	}
-            	output = pre.text() + " ";
+            	output = pre.text() + "\n";
                 System.out.println("Preformatted text: " + pre.text());
                 i++;
             }

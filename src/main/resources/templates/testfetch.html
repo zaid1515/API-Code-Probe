@@ -147,16 +147,16 @@
 
                 formData.append("code", code);
                 console.log(code);
-                var inputs = document.querySelectorAll('span[name="input1"]');
-                var inputValues = Array.from(inputs).map(input => input.value);
-                console.log(inputValues)
-                var inp=document.getElementById('ip');
+                // var inputs = document.querySelectorAll('span[name="input1"]');
+                // var inputValues = Array.from(inputs).map(input => input.value);
+                // console.log(inputValues)
+                // var inp=document.getElementById('ip');
                 
                 var inps = [];
-                inps[0]=(`${inp.textContent}`);
-                formData.append("inputs", inp);
+                inps[0]=`${ip.textContent}`;
+                formData.append("inputs", inps);
                 var oup = [];
-                oup[0]=(`${op.textContent}`);
+                oup[0]=`${op.textContent}`;
                 var outputs = document.querySelectorAll('span[name="output"]');
                 var outputValues = Array.from(outputs).map(output => output.value);
                 console.log(outputValues);
