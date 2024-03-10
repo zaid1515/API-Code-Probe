@@ -29,20 +29,20 @@
             var formData = new FormData();
             var code = document.querySelector('textarea[name="code"]').value;
             code = encodeURIComponent(code);
-
+       
             formData.append("code", code);
-
+       
             var inputs = document.querySelectorAll('textarea[name="input1"]');
             var inputValues = Array.from(inputs).map(input => input.value);
             formData.append("inputs", inputValues);
-
+       
             var outputs = document.querySelectorAll('textarea[name="output"]');
             var outputValues = Array.from(outputs).map(output => output.value);
             formData.append("outputs", outputValues);
-
+       
             var language = document.querySelector('textarea[name="language"]').value;
             formData.append("language", language);
-
+       
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/submit-code", true);
             xhr.onreadystatechange = function () {

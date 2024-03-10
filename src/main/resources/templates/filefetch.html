@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="filefetch.css">
+        <link rel="stylesheet" href="./style/filefetch.css">
         <title>Project Testing</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -134,9 +134,9 @@
                 var url= document.getElementById("url");  
                url.innerHTML = baseurl + selectedValue;
             });
-        });
-    });
-
+           });
+           });
+           
             function sendData() {
                 console.log("inside sendData");
                 var formData = new FormData();
@@ -178,17 +178,15 @@
                 };
                 xhr.send(formData);
             }
-
-        </script>
-        <script>
+           
             var addButton = document.getElementById('add-btn');
             var extraFieldsDiv = document.getElementById('extra-fields');
             var fieldCount = 2;
-
+           
             addButton.addEventListener('click', function () {
                 var newUserFieldsDiv = document.createElement('div');
                 newUserFieldsDiv.className = 'reqbody-div-new';
-
+           
                 newUserFieldsDiv.innerHTML = `
                     <div class="req-title">
                          Request <br> Body:
@@ -205,7 +203,7 @@
             addhead.addEventListener('click', function () {
                 var newHeadDiv = document.createElement('div');
                 newHeadDiv.className = 'user-fields';
-
+           
                 newHeadDiv.innerHTML = `
                <div class="apikeys-div" id="apikeys-div-new">
                     
@@ -221,7 +219,7 @@
                `;
                 userFields.appendChild(newHeadDiv);
             });
-
+           
         </script>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
